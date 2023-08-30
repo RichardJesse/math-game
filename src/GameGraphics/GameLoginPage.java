@@ -146,7 +146,10 @@ public class GameLoginPage extends javax.swing.JFrame {
     }//GEN-LAST:event_UsernameTextFieldActionPerformed
 
     private void SignUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpButtonActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:fa
+        SignUpPage SUP = new SignUpPage();
+        SUP.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_SignUpButtonActionPerformed
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed

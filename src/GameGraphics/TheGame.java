@@ -5,10 +5,11 @@
  */
 package GameGraphics;
 
-/**
- *
- * @author user1
- */
+import java.util.Random;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+import javax.swing.JOptionPane;
 public class TheGame extends javax.swing.JFrame {
 
     /**
@@ -32,10 +33,12 @@ public class TheGame extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jToggleButton1 = new javax.swing.JToggleButton();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        questionTextField = new javax.swing.JTextField();
+        answerTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        pointsTextField = new javax.swing.JTextField();
+        startGameButton = new javax.swing.JButton();
+        SubmitButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,13 +78,25 @@ public class TheGame extends javax.swing.JFrame {
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jTextField2.setText("questions ");
+        questionTextField.setText("questions ");
 
-        jTextField3.setText("answer");
+        answerTextField.setText("answer");
 
         jLabel1.setText("points");
 
-        jTextField4.setText("jTextField4");
+        startGameButton.setText("start game");
+        startGameButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startGameButtonActionPerformed(evt);
+            }
+        });
+
+        SubmitButton.setText("Submit");
+        SubmitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SubmitButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -96,28 +111,40 @@ public class TheGame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(77, 77, 77)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-                            .addComponent(jTextField3))))
+                            .addComponent(questionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                            .addComponent(answerTextField))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pointsTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(startGameButton)
+                        .addGap(25, 25, 25))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(SubmitButton)
+                        .addGap(161, 161, 161))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(startGameButton)
+                .addGap(18, 18, 18)
+                .addComponent(questionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addComponent(answerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(SubmitButton)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pointsTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(MainMenuButton)
                 .addGap(19, 19, 19))
@@ -148,6 +175,68 @@ public class TheGame extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_MainMenuButtonActionPerformed
 
+    private void startGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startGameButtonActionPerformed
+        // TODO add your handling code here:
+       
+      pointsTextField.setText("0");
+      answerTextField.setText(" ");
+      
+    
+  
+      
+       
+        
+    }//GEN-LAST:event_startGameButtonActionPerformed
+
+    private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
+        // TODO add your handling code here:
+          String answerText = answerTextField.getText().trim();
+    String questionText = questionTextField.getText().trim();
+
+    if (!answerText.matches("\\d+")){
+        JOptionPane.showMessageDialog(this, "Invalid input: please enter only digits");
+        return;
+    }
+
+        int answer = Integer.parseInt(answerText);
+        int question = evaluateExpression(questionText);
+        
+         if(answer == question){
+             
+               int firstRandomNumber = new Random().nextInt(11);
+      int secondRandomNumber = new Random().nextInt(11)+1;
+      
+      String operator = "+-/*%";
+        int random_operator = new Random().nextInt(5);
+  
+        questionTextField.setText(" " + firstRandomNumber + " " + operator.charAt(random_operator) +  " " + secondRandomNumber + " ");
+             
+           JOptionPane.showMessageDialog(this, "correct");
+           System.out.println(answer);
+       } 
+       else {
+           JOptionPane.showMessageDialog(this, "that was so wrong");
+           System.out.println(question);
+       }
+    }//GEN-LAST:event_SubmitButtonActionPerformed
+// ensuring that the question is not in string format
+    private int evaluateExpression(String expression) {
+    
+    expression = expression.replaceAll("\\s+", "");
+
+    
+    ScriptEngineManager manager = new ScriptEngineManager();
+    ScriptEngine engine = manager.getEngineByName("JavaScript");
+
+    try {
+        
+        return (int) engine.eval(expression);
+    } catch (ScriptException e) {
+        
+        JOptionPane.showMessageDialog(this, "Invalid expression: " + e.getMessage());
+        return 0;
+    }
+}
     /**
      * @param args the command line arguments
      */
@@ -185,13 +274,15 @@ public class TheGame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton MainMenuButton;
+    private javax.swing.JButton SubmitButton;
+    private javax.swing.JTextField answerTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JTextField pointsTextField;
+    private javax.swing.JTextField questionTextField;
+    private javax.swing.JButton startGameButton;
     // End of variables declaration//GEN-END:variables
 }

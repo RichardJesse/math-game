@@ -39,6 +39,8 @@ public class TheGame extends javax.swing.JFrame {
         pointsTextField = new javax.swing.JTextField();
         startGameButton = new javax.swing.JButton();
         SubmitButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        timerTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,7 +67,7 @@ public class TheGame extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addContainerGap(214, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jToggleButton1))
@@ -98,6 +100,10 @@ public class TheGame extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("timer");
+
+        timerTextField.setText("0");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -123,23 +129,36 @@ public class TheGame extends javax.swing.JFrame {
                         .addComponent(pointsTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(48, 48, 48))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(startGameButton)
-                        .addGap(25, 25, 25))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(SubmitButton)
                         .addGap(161, 161, 161))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(timerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(startGameButton)
+                .addGap(25, 25, 25))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(startGameButton)
-                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(startGameButton)
+                        .addGap(21, 21, 21))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(timerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)))
                 .addComponent(questionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(answerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(SubmitButton)
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -154,7 +173,10 @@ public class TheGame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,6 +202,13 @@ public class TheGame extends javax.swing.JFrame {
        
       pointsTextField.setText("0");
       answerTextField.setText(" ");
+       int firstRandomNumber = new Random().nextInt(11);
+      int secondRandomNumber = new Random().nextInt(11)+1;
+      
+      String operator = "+-/*%";
+        int random_operator = new Random().nextInt(5);
+  
+        questionTextField.setText(" " + firstRandomNumber + " " + operator.charAt(random_operator) +  " " + secondRandomNumber + " ");
       
     
   
@@ -187,11 +216,12 @@ public class TheGame extends javax.swing.JFrame {
        
         
     }//GEN-LAST:event_startGameButtonActionPerformed
-
+int point = 0;
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
         // TODO add your handling code here:
           String answerText = answerTextField.getText().trim();
     String questionText = questionTextField.getText().trim();
+    String points = pointsTextField.getText().trim();
 
     if (!answerText.matches("\\d+")){
         JOptionPane.showMessageDialog(this, "Invalid input: please enter only digits");
@@ -200,22 +230,27 @@ public class TheGame extends javax.swing.JFrame {
 
         int answer = Integer.parseInt(answerText);
         int question = evaluateExpression(questionText);
+        int Point = evaluateExpression(points);
+        
         
          if(answer == question){
+             
+             point++;
+             
              
                int firstRandomNumber = new Random().nextInt(11);
       int secondRandomNumber = new Random().nextInt(11)+1;
       
       String operator = "+-/*%";
         int random_operator = new Random().nextInt(5);
+        pointsTextField.setText(""+point+"");
   
         questionTextField.setText(" " + firstRandomNumber + " " + operator.charAt(random_operator) +  " " + secondRandomNumber + " ");
              
-           JOptionPane.showMessageDialog(this, "correct");
-           System.out.println(answer);
+          
        } 
        else {
-           JOptionPane.showMessageDialog(this, "that was so wrong");
+           JOptionPane.showMessageDialog(this, "that was so wrong try again");
            System.out.println(question);
        }
     }//GEN-LAST:event_SubmitButtonActionPerformed
@@ -277,6 +312,7 @@ public class TheGame extends javax.swing.JFrame {
     private javax.swing.JButton SubmitButton;
     private javax.swing.JTextField answerTextField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField1;
@@ -284,5 +320,6 @@ public class TheGame extends javax.swing.JFrame {
     private javax.swing.JTextField pointsTextField;
     private javax.swing.JTextField questionTextField;
     private javax.swing.JButton startGameButton;
+    private javax.swing.JTextField timerTextField;
     // End of variables declaration//GEN-END:variables
 }

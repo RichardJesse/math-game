@@ -5,11 +5,15 @@
  */
 package GameGraphics;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
+
 public class TheGame extends javax.swing.JFrame {
 
     /**
@@ -199,79 +203,95 @@ public class TheGame extends javax.swing.JFrame {
 
     private void startGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startGameButtonActionPerformed
         // TODO add your handling code here:
-       
-      pointsTextField.setText("0");
-      answerTextField.setText(" ");
-       int firstRandomNumber = new Random().nextInt(11);
-      int secondRandomNumber = new Random().nextInt(11)+1;
-      
-      String operator = "+-/*%";
+
+        pointsTextField.setText("0");
+        answerTextField.setText(" ");
+        int firstRandomNumber = new Random().nextInt(11);
+        int secondRandomNumber = new Random().nextInt(11) + 1;
+
+        String operator = "+-/*%";
         int random_operator = new Random().nextInt(5);
-  
-        questionTextField.setText(" " + firstRandomNumber + " " + operator.charAt(random_operator) +  " " + secondRandomNumber + " ");
-      
-    
-  
-      
-       
-        
+
+        questionTextField.setText(" " + firstRandomNumber + " " + operator.charAt(random_operator) + " " + secondRandomNumber + " ");
+
+        Timer timer = new Timer(1000, new ActionListener() {
+            int timeLeft = 30;
+
+            public void actionPerformed(ActionEvent e) {
+
+                timerTextField.setText(String.valueOf(timeLeft));
+                timeLeft--;
+                if (timeLeft < 0) {
+                    int firstRandomNumber = new Random().nextInt(11);
+                    int secondRandomNumber = new Random().nextInt(11) + 1;
+                    String operator = "+-/*%";
+                    int random_operator = new Random().nextInt(5);
+                    questionTextField.setText(" " + firstRandomNumber + " " + operator.charAt(random_operator) + " " + secondRandomNumber + " ");
+
+                    // Reset the timer
+                    timeLeft = 30;
+                }
+
+            }
+        });
+
+        timer.start();
+
+
     }//GEN-LAST:event_startGameButtonActionPerformed
-int point = 0;
+    int point = 0;
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
         // TODO add your handling code here:
-          String answerText = answerTextField.getText().trim();
-    String questionText = questionTextField.getText().trim();
-    String points = pointsTextField.getText().trim();
+        String answerText = answerTextField.getText().trim();
+        String questionText = questionTextField.getText().trim();
+        String points = pointsTextField.getText().trim();
 
-    if (!answerText.matches("\\d+")){
-        JOptionPane.showMessageDialog(this, "Invalid input: please enter only digits");
-        return;
-    }
+        if (!answerText.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "Invalid input: please enter only digits");
+            return;
+        }
 
         int answer = Integer.parseInt(answerText);
         int question = evaluateExpression(questionText);
         int Point = evaluateExpression(points);
-        
-        
-         if(answer == question){
-             
-             point++;
-             
-             
-               int firstRandomNumber = new Random().nextInt(11);
-      int secondRandomNumber = new Random().nextInt(11)+1;
-      
-      String operator = "+-/*%";
-        int random_operator = new Random().nextInt(5);
-        pointsTextField.setText(""+point+"");
-  
-        questionTextField.setText(" " + firstRandomNumber + " " + operator.charAt(random_operator) +  " " + secondRandomNumber + " ");
-             
-          
-       } 
-       else {
-           JOptionPane.showMessageDialog(this, "that was so wrong try again");
-           System.out.println(question);
-       }
+
+        if (answer == question) {
+
+            point++;
+
+            int firstRandomNumber = new Random().nextInt(11);
+            int secondRandomNumber = new Random().nextInt(11) + 1;
+
+            String operator = "+-/*%";
+            int random_operator = new Random().nextInt(5);
+            pointsTextField.setText("" + point + "");
+
+            questionTextField.setText(" " + firstRandomNumber + " " + operator.charAt(random_operator) + " " + secondRandomNumber + " ");
+
+        } else {
+            JOptionPane.showMessageDialog(this, "that was so wrong try again");
+            System.out.println(question);
+        }
     }//GEN-LAST:event_SubmitButtonActionPerformed
 // ensuring that the question is not in string format
+
     private int evaluateExpression(String expression) {
-    
-    expression = expression.replaceAll("\\s+", "");
 
-    
-    ScriptEngineManager manager = new ScriptEngineManager();
-    ScriptEngine engine = manager.getEngineByName("JavaScript");
+        expression = expression.replaceAll("\\s+", "");
 
-    try {
-        
-        return (int) engine.eval(expression);
-    } catch (ScriptException e) {
-        
-        JOptionPane.showMessageDialog(this, "Invalid expression: " + e.getMessage());
-        return 0;
+        ScriptEngineManager manager = new ScriptEngineManager();
+        ScriptEngine engine = manager.getEngineByName("JavaScript");
+
+        try {
+
+            return (int) engine.eval(expression);
+        } catch (ScriptException e) {
+
+            JOptionPane.showMessageDialog(this, "Invalid expression: " + e.getMessage());
+            return 0;
+        }
     }
-}
+
     /**
      * @param args the command line arguments
      */

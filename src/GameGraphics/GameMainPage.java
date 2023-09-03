@@ -5,15 +5,13 @@
  */
 package GameGraphics;
 
-/**
- *
- * @author user1
- */
+import java.sql.*;
+import javax.swing.JOptionPane;
 public class GameMainPage extends javax.swing.JFrame {
 
-    /**
-     * Creates new form GameMainPage
-     */
+   Connection connect = null;
+   PreparedStatement pst = null;
+   ResultSet rset = null;
     public GameMainPage() {
         initComponents();
     }
@@ -69,6 +67,11 @@ public class GameMainPage extends javax.swing.JFrame {
         });
 
         LeaderboardButton.setText("Leaderboard");
+        LeaderboardButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LeaderboardButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -114,6 +117,27 @@ public class GameMainPage extends javax.swing.JFrame {
         TG.setTitle("Fun Math Game");
         this.setVisible(false);
     }//GEN-LAST:event_PlayGameButtonActionPerformed
+
+    private void LeaderboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LeaderboardButtonActionPerformed
+        // TODO add your handling code here:
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            connect = DriverManager.getConnection("jdbc:mysql://localhost:3360/mathgame","root","");
+             
+           String query = "SELECT * FROM `playerspoints`";
+           pst =connect.prepareStatement(query);
+           rset = pst.executeQuery();
+           while(rset.next()){
+                  
+           }
+            
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this,e.getMessage());
+            
+            
+        }
+        
+    }//GEN-LAST:event_LeaderboardButtonActionPerformed
 
     /**
      * @param args the command line arguments

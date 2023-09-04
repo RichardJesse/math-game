@@ -112,9 +112,9 @@ public class GameMainPage extends javax.swing.JFrame {
 
     private void PlayGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlayGameButtonActionPerformed
         // TODO add your handling code here:
-        TheGame TG = new TheGame();
-        TG.setVisible(true);
-        TG.setTitle("Fun Math Game");
+         GAME G = new GAME();
+        G.setVisible(true);
+        G.setTitle("Fun Math Game");
         this.setVisible(false);
     }//GEN-LAST:event_PlayGameButtonActionPerformed
 

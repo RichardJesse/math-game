@@ -5,15 +5,22 @@
  */
 package GameGraphics;
 
-/**
- *
- * @author user1
- */
+import java.sql.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+import javax.swing.JOptionPane;
+import javax.swing.Timer;
+
 public class GAME extends javax.swing.JFrame {
 
-    /**
-     * Creates new form GAME
-     */
+    Connection connect = null;
+    Statement statement = null;
+    ResultSet rset = null;
+
     public GAME() {
         initComponents();
     }
@@ -27,21 +34,250 @@ public class GAME extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jTextField1 = new javax.swing.JTextField();
+        startGameButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        timerTextField = new javax.swing.JTextField();
+        questionTextField = new javax.swing.JTextField();
+        answerTextField = new javax.swing.JTextField();
+        submitButton = new javax.swing.JButton();
+        endGameButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        pointsTextField = new javax.swing.JTextField();
+        mainMenuButton = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jToggleButton1.setText("change theme");
+
+        jTextField1.setText("math game");
+
+        startGameButton.setText("start game");
+        startGameButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startGameButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(startGameButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addComponent(jToggleButton1)))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jToggleButton1)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addComponent(startGameButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+        );
+
+        jLabel1.setText("timer");
+
+        questionTextField.setText("question");
+
+        answerTextField.setText("answer");
+
+        submitButton.setText("submit");
+        submitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitButtonActionPerformed(evt);
+            }
+        });
+
+        endGameButton.setText("end game");
+
+        jLabel2.setText("points");
+
+        pointsTextField.setText("0");
+
+        mainMenuButton.setText("main menu");
+        mainMenuButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mainMenuButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pointsTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(timerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(submitButton)
+                                .addGap(66, 66, 66)
+                                .addComponent(endGameButton, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(answerTextField)
+                                    .addComponent(questionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)))))
+                    .addComponent(mainMenuButton))
+                .addContainerGap(82, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(timerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(questionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(answerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(submitButton)
+                    .addComponent(endGameButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(pointsTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mainMenuButton)
+                .addGap(0, 1, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void startGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startGameButtonActionPerformed
+        // TODO add your handling code here:
+        startTheGame();
+
+    }//GEN-LAST:event_startGameButtonActionPerformed
+
+    private void mainMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainMenuButtonActionPerformed
+        // TODO add your handling code here:
+        GameMainPage GMP = new GameMainPage();
+        GMP.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mainMenuButtonActionPerformed
+    int point = 0;
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
+        // TODO add your handling code here:
+        String answerText = answerTextField.getText().trim();
+        String questionText = questionTextField.getText().trim();
+        String points = pointsTextField.getText().trim();
+
+        if (!answerText.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "Invalid input: please enter only digits");
+            return;
+        }
+
+        int answer = Integer.parseInt(answerText);
+        int question = evaluateExpression(questionText);
+        int Point = evaluateExpression(points);
+        if (answer == question) {
+            point++;
+            startTheGame();
+        } else {
+            JOptionPane.showMessageDialog(this, "that was so wrong try again");
+            System.out.println(question);
+        }
+
+
+    }//GEN-LAST:event_submitButtonActionPerformed
+
+    private int evaluateExpression(String expression) {
+
+        expression = expression.replaceAll("\\s+", "");
+
+        ScriptEngineManager manager = new ScriptEngineManager();
+        ScriptEngine engine = manager.getEngineByName("JavaScript");
+
+        try {
+
+            return (int) engine.eval(expression);
+        } catch (ScriptException e) {
+
+            JOptionPane.showMessageDialog(this, "Invalid expression: " + e.getMessage());
+            return 0;
+        }
+    }
+
+    private void startTheGame() {
+        pointsTextField.setText("0");
+        answerTextField.setText(" ");
+        int firstRandomNumber = new Random().nextInt(11);
+        int secondRandomNumber = new Random().nextInt(11) + 1;
+
+        String operator = "+-/*%";
+        int random_operator = new Random().nextInt(5);
+
+        questionTextField.setText(" " + firstRandomNumber + " " + operator.charAt(random_operator) + " " + secondRandomNumber + " ");
+
+        Timer timer = new Timer(1000, new ActionListener() {
+            int timeLeft = 30;
+
+            public void actionPerformed(ActionEvent e) {
+
+                timerTextField.setText(String.valueOf(timeLeft));
+                timeLeft--;
+                if (timeLeft < 0) {
+                    int firstRandomNumber = new Random().nextInt(11);
+                    int secondRandomNumber = new Random().nextInt(11) + 1;
+                    String operator = "+-/*%";
+                    int random_operator = new Random().nextInt(5);
+                    questionTextField.setText(" " + firstRandomNumber + " " + operator.charAt(random_operator) + " " + secondRandomNumber + " ");
+
+                    // Reset the timer
+                    timeLeft = 30;
+                }
+
+            }
+        });
+
+        timer.start();
+
+    }
 
     /**
      * @param args the command line arguments
@@ -79,5 +315,19 @@ public class GAME extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField answerTextField;
+    private javax.swing.JButton endGameButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JButton mainMenuButton;
+    private javax.swing.JTextField pointsTextField;
+    private javax.swing.JTextField questionTextField;
+    private javax.swing.JButton startGameButton;
+    private javax.swing.JButton submitButton;
+    private javax.swing.JTextField timerTextField;
     // End of variables declaration//GEN-END:variables
 }

@@ -128,6 +128,7 @@ public class GameMainPage extends javax.swing.JFrame {
            pst =connect.prepareStatement(query);
            rset = pst.executeQuery();
            while(rset.next()){
+               JOptionPane.showMessageDialog(this,rset.getString("username")+" "+rset.getInt("points"));
                   
            }
             

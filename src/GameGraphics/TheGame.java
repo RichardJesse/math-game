@@ -5,6 +5,7 @@
  */
 package GameGraphics;
 
+import java.sql.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
@@ -15,10 +16,10 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 public class TheGame extends javax.swing.JFrame {
-
-    /**
-     * Creates new form TheGame
-     */
+ Connection connect = null;
+ Statement statement = null;
+ ResultSet rset = null;
+   
     public TheGame() {
         initComponents();
     }
@@ -45,6 +46,7 @@ public class TheGame extends javax.swing.JFrame {
         SubmitButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         timerTextField = new javax.swing.JTextField();
+        endGameButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,6 +110,13 @@ public class TheGame extends javax.swing.JFrame {
 
         timerTextField.setText("0");
 
+        endGameButton.setText("end game");
+        endGameButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                endGameButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -134,7 +143,9 @@ public class TheGame extends javax.swing.JFrame {
                         .addGap(48, 48, 48))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(SubmitButton)
-                        .addGap(161, 161, 161))))
+                        .addGap(53, 53, 53)
+                        .addComponent(endGameButton)
+                        .addGap(35, 35, 35))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -163,7 +174,9 @@ public class TheGame extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addComponent(answerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(SubmitButton)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SubmitButton)
+                    .addComponent(endGameButton))
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -267,12 +280,53 @@ public class TheGame extends javax.swing.JFrame {
             pointsTextField.setText("" + point + "");
 
             questionTextField.setText(" " + firstRandomNumber + " " + operator.charAt(random_operator) + " " + secondRandomNumber + " ");
+            
+             Timer timer = new Timer(1000, new ActionListener() {
+            int timeLeft = 30;
+
+            public void actionPerformed(ActionEvent e) {
+
+                timerTextField.setText(String.valueOf(timeLeft));
+                timeLeft--;
+                if (timeLeft < 0) {
+                    int firstRandomNumber = new Random().nextInt(11);
+                    int secondRandomNumber = new Random().nextInt(11) + 1;
+                    String operator = "+-/*%";
+                    int random_operator = new Random().nextInt(5);
+                    questionTextField.setText(" " + firstRandomNumber + " " + operator.charAt(random_operator) + " " + secondRandomNumber + " ");
+
+                    // Reset the timer
+                    timeLeft = 30;
+                }
+
+            }
+        });
 
         } else {
             JOptionPane.showMessageDialog(this, "that was so wrong try again");
             System.out.println(question);
         }
     }//GEN-LAST:event_SubmitButtonActionPerformed
+
+    private void endGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endGameButtonActionPerformed
+        // TODO add your handling code here:
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            connect = DriverManager.getConnection("jdbc:mysql://localhost:3360/mathgame","root","");
+            statement = connect.createStatement();
+            
+//            statement.executeQuery()
+            
+        }catch(Exception e){
+            
+        }
+        
+        GameMainPage GMP = new GameMainPage();
+        GMP.setVisible(true);
+        this.setVisible(false);
+        
+    }//GEN-LAST:event_endGameButtonActionPerformed
 // ensuring that the question is not in string format
 
     private int evaluateExpression(String expression) {
@@ -331,6 +385,7 @@ public class TheGame extends javax.swing.JFrame {
     private javax.swing.JButton MainMenuButton;
     private javax.swing.JButton SubmitButton;
     private javax.swing.JTextField answerTextField;
+    private javax.swing.JButton endGameButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

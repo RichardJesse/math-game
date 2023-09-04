@@ -19,6 +19,7 @@ public class TheGame extends javax.swing.JFrame {
  Connection connect = null;
  Statement statement = null;
  ResultSet rset = null;
+    
    
     public TheGame() {
         initComponents();
@@ -216,7 +217,7 @@ public class TheGame extends javax.swing.JFrame {
 
     private void startGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startGameButtonActionPerformed
         // TODO add your handling code here:
-
+        
         pointsTextField.setText("0");
         answerTextField.setText(" ");
         int firstRandomNumber = new Random().nextInt(11);
@@ -250,6 +251,8 @@ public class TheGame extends javax.swing.JFrame {
 
         timer.start();
 
+        
+     
 
     }//GEN-LAST:event_startGameButtonActionPerformed
     int point = 0;
@@ -288,7 +291,7 @@ public class TheGame extends javax.swing.JFrame {
 
                 timerTextField.setText(String.valueOf(timeLeft));
                 timeLeft--;
-                if (timeLeft < 0) {
+                if (timeLeft < 0) 
                     int firstRandomNumber = new Random().nextInt(11);
                     int secondRandomNumber = new Random().nextInt(11) + 1;
                     String operator = "+-/*%";
@@ -316,9 +319,11 @@ public class TheGame extends javax.swing.JFrame {
             connect = DriverManager.getConnection("jdbc:mysql://localhost:3360/mathgame","root","");
             statement = connect.createStatement();
             
-//            statement.executeQuery()
+           statement.executeQuery()
             
         }catch(Exception e){
+          
+        JOptionPane.showMessageDialog(this,e.getMessage())
             
         }
         

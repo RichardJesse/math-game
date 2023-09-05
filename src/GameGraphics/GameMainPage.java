@@ -120,6 +120,7 @@ public class GameMainPage extends javax.swing.JFrame {
 
     private void LeaderboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LeaderboardButtonActionPerformed
         // TODO add your handling code here:
+        
         try{
             Class.forName("com.mysql.jdbc.Driver");
             connect = DriverManager.getConnection("jdbc:mysql://localhost:3360/mathgame","root","");
@@ -128,15 +129,18 @@ public class GameMainPage extends javax.swing.JFrame {
            pst =connect.prepareStatement(query);
            rset = pst.executeQuery();
            while(rset.next()){
-               JOptionPane.showMessageDialog(this,rset.getString("username")+" "+rset.getInt("points"));
+               JOptionPane.showMessageDialog(this,rset.getString("username")+"You have "+rset.getInt("points")+" points");
+               System.out.println("the points are being shown on the screen");
                   
            }
             
         }catch (Exception e){
             JOptionPane.showMessageDialog(this,e.getMessage());
+            System.out.println("there was a problem that has already been shown in the screen");
             
             
         }
+        System.out.println("nothing happend when you pressed the button");
         
     }//GEN-LAST:event_LeaderboardButtonActionPerformed
 

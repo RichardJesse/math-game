@@ -105,6 +105,11 @@ public class GAME extends javax.swing.JFrame {
         });
 
         endGameButton.setText("end game");
+        endGameButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                endGameButtonActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("points");
 
@@ -206,18 +211,22 @@ public class GAME extends javax.swing.JFrame {
         String answerText = answerTextField.getText().trim();
         String questionText = questionTextField.getText().trim();
         String points = pointsTextField.getText().trim();
+        System.out.println(points);
 
         if (!answerText.matches("\\d+")) {
             JOptionPane.showMessageDialog(this, "Invalid input: please enter only digits");
             return;
         }
 
-        int answer = Integer.parseInt(answerText);
+        int answer = evaluateExpression(answerText);
         int question = evaluateExpression(questionText);
         int Point = evaluateExpression(points);
         if (answer == question) {
-            point++;
+            Point = point++;
             startTheGame();
+//            points.setText(String.valueOf(point++));
+            System.out.println(point++);
+
         } else {
             JOptionPane.showMessageDialog(this, "that was so wrong try again");
             System.out.println(question);
@@ -225,6 +234,17 @@ public class GAME extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_submitButtonActionPerformed
+
+    private void endGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endGameButtonActionPerformed
+        // TODO add your handling code here:
+        // when the player ends the game we add the points they had gotten to the playerspoints relation in the database
+/*
+         challenges
+         1.getting the users username to link to the points
+         2. arranging the table in desending order
+        
+         */
+    }//GEN-LAST:event_endGameButtonActionPerformed
 
     private int evaluateExpression(String expression) {
 

@@ -168,6 +168,9 @@ public class GameLoginPage extends javax.swing.JFrame {
             rset = pst.executeQuery();
             while (rset.next()) {
                 JOptionPane.showMessageDialog(this, "You are logged in as" + " " + rset.getString("username"));
+                GAME G = new GAME();
+               G.setVisible(true);
+               this.setVisible(false);
 
             }
 

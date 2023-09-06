@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 public class GAME extends javax.swing.JFrame {
+//get the timer to start when the question has been answered 
+    //add the points and categorize the points according to the complexity of the question
 
     Connection connect = null;
     Statement statement = null;
@@ -222,10 +224,12 @@ public class GAME extends javax.swing.JFrame {
         int question = evaluateExpression(questionText);
         int Point = evaluateExpression(points);
         if (answer == question) {
-            Point = point++;
+            point++;
+            System.out.println(point);
+            pointsTextField.setText(String.valueOf(point));
             startTheGame();
-//            points.setText(String.valueOf(point++));
-            System.out.println(point++);
+
+            
 
         } else {
             JOptionPane.showMessageDialog(this, "that was so wrong try again");
@@ -242,6 +246,8 @@ public class GAME extends javax.swing.JFrame {
          challenges
          1.getting the users username to link to the points
          2. arranging the table in desending order
+         3.showing the table in a separate page. 
+         4. adding the points to the players points table
         
          */
     }//GEN-LAST:event_endGameButtonActionPerformed
@@ -262,6 +268,7 @@ public class GAME extends javax.swing.JFrame {
             return 0;
         }
     }
+    private Timer timer;
 
     private void startTheGame() {
         pointsTextField.setText("0");
@@ -274,7 +281,11 @@ public class GAME extends javax.swing.JFrame {
 
         questionTextField.setText(" " + firstRandomNumber + " " + operator.charAt(random_operator) + " " + secondRandomNumber + " ");
 
-        Timer timer = new Timer(1000, new ActionListener() {
+        if (timer != null) {
+            timer.stop();
+        }
+
+        timer = new Timer(1000, new ActionListener() {
             int timeLeft = 30;
 
             public void actionPerformed(ActionEvent e) {
@@ -288,11 +299,12 @@ public class GAME extends javax.swing.JFrame {
                     int random_operator = new Random().nextInt(5);
                     questionTextField.setText(" " + firstRandomNumber + " " + operator.charAt(random_operator) + " " + secondRandomNumber + " ");
 
-                    // Reset the timer
                     timeLeft = 30;
+
                 }
 
             }
+
         });
 
         timer.start();

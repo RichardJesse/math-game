@@ -252,6 +252,11 @@ public class GAME extends javax.swing.JFrame {
          */
     }//GEN-LAST:event_endGameButtonActionPerformed
 
+    /**
+     * This method takes in the numbers from the expressions passed to it as strings and converts them to integers
+     * @param expression
+     * @return an integer
+     */
     private int evaluateExpression(String expression) {
 
         expression = expression.replaceAll("\\s+", "");
@@ -269,9 +274,12 @@ public class GAME extends javax.swing.JFrame {
         }
     }
     private Timer timer;
+    /**
+     * resets all the text fields to null and also starts the timer when the question is changed 
+     */
 
     private void startTheGame() {
-        pointsTextField.setText("0");
+       
         answerTextField.setText(" ");
         int firstRandomNumber = new Random().nextInt(11);
         int secondRandomNumber = new Random().nextInt(11) + 1;

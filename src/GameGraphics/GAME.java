@@ -14,6 +14,13 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
+
+
+
 
 public class GAME extends javax.swing.JFrame {
 //get the timer to start when the question has been answered 
@@ -225,6 +232,8 @@ public class GAME extends javax.swing.JFrame {
         int Point = evaluateExpression(points);
         if (answer == question) {
             point++;
+            playSound("C:\\Users\\user1\\Downloads\\mixkit-correct-answer-tone-2870.wav");
+
             System.out.println(point);
             pointsTextField.setText(String.valueOf(point));
             startTheGame();
@@ -232,7 +241,8 @@ public class GAME extends javax.swing.JFrame {
             
 
         } else {
-            JOptionPane.showMessageDialog(this, "that was so wrong try again");
+            playSound("C:\\Users\\user1\\Downloads\\buzzer-or-wrong-answer-20582.mp3");
+//            JOptionPane.showMessageDialog(this, "that was so wrong try again");
             System.out.println(question);
         }
 
@@ -317,6 +327,25 @@ public class GAME extends javax.swing.JFrame {
 
         timer.start();
 
+    }
+    /**
+     * This method is used to play the sounds that are played all across the game
+     * by taking the file that contains the sound as a parameter 
+     * @param soundfile
+     */
+    private void playSound(String soundFile){
+        try{
+            File file = new File(soundFile);
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file.toURI().toURL());
+            
+            Clip clip =AudioSystem.getClip();
+            clip.open(audioIn);
+            clip.start();
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
     }
 
     /**

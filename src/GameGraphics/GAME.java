@@ -20,8 +20,6 @@ import javax.sound.sampled.Clip;
 import java.io.File;
 
 
-
-
 public class GAME extends javax.swing.JFrame {
 //get the timer to start when the question has been answered 
     //add the points and categorize the points according to the complexity of the question
@@ -238,10 +236,8 @@ public class GAME extends javax.swing.JFrame {
             pointsTextField.setText(String.valueOf(point));
             startTheGame();
 
-            
-
         } else {
-            playSound("C:\\Users\\user1\\Downloads\\buzzer-or-wrong-answer-20582.mp3");
+
 //            JOptionPane.showMessageDialog(this, "that was so wrong try again");
             System.out.println(question);
         }
@@ -263,7 +259,9 @@ public class GAME extends javax.swing.JFrame {
     }//GEN-LAST:event_endGameButtonActionPerformed
 
     /**
-     * This method takes in the numbers from the expressions passed to it as strings and converts them to integers
+     * This method takes in the numbers from the expressions passed to it as
+     * strings and converts them to integers
+     *
      * @param expression
      * @return an integer
      */
@@ -284,12 +282,14 @@ public class GAME extends javax.swing.JFrame {
         }
     }
     private Timer timer;
+
     /**
-     * resets all the text fields to null and also starts the timer when the question is changed 
+     * resets all the text fields to null and also starts the timer when the
+     * question is changed
      */
 
     private void startTheGame() {
-       
+
         answerTextField.setText(" ");
         int firstRandomNumber = new Random().nextInt(11);
         int secondRandomNumber = new Random().nextInt(11) + 1;
@@ -328,24 +328,28 @@ public class GAME extends javax.swing.JFrame {
         timer.start();
 
     }
+
     /**
-     * This method is used to play the sounds that are played all across the game
-     * by taking the file that contains the sound as a parameter 
+     * This method is used to play the sounds that are played all across the
+     * game by taking the file that contains the sound as a parameter This
+     * method only works on files that have an WAV AIFF and AU format since it
+     * uses the java sound API
+     *
      * @param soundfile
      */
-    private void playSound(String soundFile){
-        try{
+    private void playSound(String soundFile) {
+        try {
             File file = new File(soundFile);
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file.toURI().toURL());
-            
-            Clip clip =AudioSystem.getClip();
+
+            Clip clip = AudioSystem.getClip();
             clip.open(audioIn);
             clip.start();
-            
-        }catch(Exception e){
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
 
     /**

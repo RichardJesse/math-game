@@ -18,10 +18,12 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 
 public class GAME extends javax.swing.JFrame {
-//get the timer to start when the question has been answered 
+
     //add the points and categorize the points according to the complexity of the question
 
     Connection connect = null;
@@ -231,6 +233,7 @@ public class GAME extends javax.swing.JFrame {
         if (answer == question) {
             point++;
             playSound("C:\\Users\\user1\\Downloads\\mixkit-correct-answer-tone-2870.wav");
+            
 
             System.out.println(point);
             pointsTextField.setText(String.valueOf(point));
@@ -256,14 +259,25 @@ public class GAME extends javax.swing.JFrame {
          4. adding the points to the players points table
         
          */
+        try{
+            // query to insert the data into the players points relation
+            Class.forName("com.mysql.jdbc.Driver");
+            connect = DriverManager.getConnection("jdbc:mysql://localhost:3360/mathgame","root","");
+            
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(this,e.getMessage());
+            
+        }
     }//GEN-LAST:event_endGameButtonActionPerformed
 
     /**
      * This method takes in the numbers from the expressions passed to it as
-     * strings and converts them to integers
+     * strings and converts them to integers by the use of the use of the java
+     * script API
      *
      * @param expression
-     * @return an integer
+     * @return an integer from an integer that was wrapped with quotation marks
      */
     private int evaluateExpression(String expression) {
 
@@ -330,10 +344,10 @@ public class GAME extends javax.swing.JFrame {
     }
 
     /**
-     * This method is used to play the sounds that are played all across the
-     * game by taking the file that contains the sound as a parameter This
-     * method only works on files that have an WAV AIFF and AU format since it
-     * uses the java sound API
+     * This method takes in the sound file to played as a parameter and uses 
+     * the java sound API to ensure that the sound is played.
+     * The sound files are expected to be in WAV,AFFI format to be able to play
+     * 
      *
      * @param soundfile
      */

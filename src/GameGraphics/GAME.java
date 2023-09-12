@@ -263,6 +263,7 @@ public class GAME extends javax.swing.JFrame {
             // query to insert the data into the players points relation
             Class.forName("com.mysql.jdbc.Driver");
             connect = DriverManager.getConnection("jdbc:mysql://localhost:3360/mathgame","root","");
+            GameLoginPage GLP = new GameLoginPage();
             
         }
         catch(Exception e){
@@ -342,6 +343,8 @@ public class GAME extends javax.swing.JFrame {
         timer.start();
 
     }
+    
+   
 
     /**
      * This method takes in the sound file to played as a parameter and uses 

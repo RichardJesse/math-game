@@ -13,6 +13,9 @@ public class GameLoginPage extends javax.swing.JFrame {
     Connection connection = null;
     PreparedStatement pst = null;
     ResultSet rset = null;
+    
+    
+   
 
     public GameLoginPage() {
         initComponents();
@@ -154,7 +157,7 @@ public class GameLoginPage extends javax.swing.JFrame {
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
         // TODO add your handling code here:
-        String username = UsernameTextField.getText();
+//        String username = UsernameTextField.getText();
         String password = PasswordTextField.getText();
 
         try {
@@ -179,6 +182,7 @@ public class GameLoginPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_LoginButtonActionPerformed
 
+    
     /**
      * @param args the command line arguments
      */

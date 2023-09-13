@@ -14,7 +14,7 @@ public class GameLoginPage extends javax.swing.JFrame {
     PreparedStatement pst = null;
     ResultSet rset = null;
     
-    
+    private static String currentUser;
    
 
     public GameLoginPage() {
@@ -157,7 +157,7 @@ public class GameLoginPage extends javax.swing.JFrame {
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
         // TODO add your handling code here:
-//        String username = UsernameTextField.getText();
+        String username = UsernameTextField.getText();
         String password = PasswordTextField.getText();
 
         try {
@@ -171,17 +171,24 @@ public class GameLoginPage extends javax.swing.JFrame {
             rset = pst.executeQuery();
             while (rset.next()) {
                 JOptionPane.showMessageDialog(this, "You are logged in as" + " " + rset.getString("username"));
-                GAME G = new GAME();
+                   this.currentUser = username;
+                GameMainPage G = new GameMainPage();
                G.setVisible(true);
                this.setVisible(false);
 
             }
+         
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "there was an error that occurred and it is " + e.getMessage());
         }
     }//GEN-LAST:event_LoginButtonActionPerformed
-
+ 
+    public String getCurrentUser(){
+        return currentUser;
+        
+    }
+            
     
     /**
      * @param args the command line arguments

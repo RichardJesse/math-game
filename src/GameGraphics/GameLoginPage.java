@@ -184,6 +184,13 @@ public class GameLoginPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_LoginButtonActionPerformed
  
+    /**
+     * this it the getter that is used to get the current user and then use this
+     * username in later pages of the game to help in later operations that may 
+     * the username of the player to be stored.
+     * @return currentUser which is the username of the player who is currently 
+     * playing the game.
+     */
     public String getCurrentUser(){
         return currentUser;
         

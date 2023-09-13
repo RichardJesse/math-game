@@ -29,6 +29,8 @@ public class GAME extends javax.swing.JFrame {
     Connection connect = null;
     Statement statement = null;
     ResultSet rset = null;
+    
+    private static int playerPoints;
 
     public GAME() {
         initComponents();
@@ -234,7 +236,7 @@ public class GAME extends javax.swing.JFrame {
             point++;
             playSound("C:\\Users\\user1\\Downloads\\mixkit-correct-answer-tone-2870.wav");
             
-
+             this.playerPoints = point;
             System.out.println(point);
             pointsTextField.setText(String.valueOf(point));
             startTheGame();
@@ -247,7 +249,14 @@ public class GAME extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_submitButtonActionPerformed
-
+ /**
+  * this is a getter for the players points to help in getting the players points
+  * so that they can be stored in the leader board of the database.
+  * @return players points that is gotten form the setter
+  */
+    public int getPlayerPoints(){
+        return playerPoints;
+    }
     private void endGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endGameButtonActionPerformed
         // TODO add your handling code here:
         // when the player ends the game we add the points they had gotten to the playerspoints relation in the database
@@ -259,15 +268,26 @@ public class GAME extends javax.swing.JFrame {
          4. adding the points to the players points table
         
          */
+        GameLoginPage GLP = new GameLoginPage();
+        
+        String username = GLP.getCurrentUser();
+        GAME G = new GAME();
+        
+        int points = G.getPlayerPoints();
+        
         try{
             // query to insert the data into the players points relation
             Class.forName("com.mysql.jdbc.Driver");
             connect = DriverManager.getConnection("jdbc:mysql://localhost:3360/mathgame","root","");
-            GameLoginPage GLP = new GameLoginPage();
+            String query = "INSERT INTO `playerspoints` (username,points) VALUES ('"+username+"','"+points+"')";
+            statement = connect.createStatement();
+            statement.executeUpdate(query);
+            System.out.println(query);
             
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(this,e.getMessage());
+            
             
         }
     }//GEN-LAST:event_endGameButtonActionPerformed

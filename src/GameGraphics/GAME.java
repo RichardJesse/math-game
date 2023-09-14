@@ -21,15 +21,13 @@ import java.io.File;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-
 public class GAME extends javax.swing.JFrame {
 
     //add the points and categorize the points according to the complexity of the question
-
     Connection connect = null;
     Statement statement = null;
     ResultSet rset = null;
-    
+
     private static int playerPoints;
 
     public GAME() {
@@ -235,8 +233,8 @@ public class GAME extends javax.swing.JFrame {
         if (answer == question) {
             point++;
             playSound("C:\\Users\\user1\\Downloads\\mixkit-correct-answer-tone-2870.wav");
-            
-             this.playerPoints = point;
+
+            this.playerPoints = point;
             System.out.println(point);
             pointsTextField.setText(String.valueOf(point));
             startTheGame();
@@ -249,12 +247,13 @@ public class GAME extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_submitButtonActionPerformed
- /**
-  * this is a getter for the players points to help in getting the players points
-  * so that they can be stored in the leader board of the database.
-  * @return players points that is gotten form the setter
-  */
-    public int getPlayerPoints(){
+    /**
+     * this is a getter for the players points to help in getting the players
+     * points so that they can be stored in the leader board of the database.
+     *
+     * @return players points that is gotten form the setter
+     */
+    public int getPlayerPoints() {
         return playerPoints;
     }
     private void endGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endGameButtonActionPerformed
@@ -269,26 +268,26 @@ public class GAME extends javax.swing.JFrame {
         
          */
         GameLoginPage GLP = new GameLoginPage();
-        
+
         String username = GLP.getCurrentUser();
         GAME G = new GAME();
-        
+
         int points = G.getPlayerPoints();
-        
-        try{
+
+        try {
             // query to insert the data into the players points relation
             Class.forName("com.mysql.jdbc.Driver");
-            connect = DriverManager.getConnection("jdbc:mysql://localhost:3360/mathgame","root","");
-            String query = "INSERT INTO `playerspoints` (username,points) VALUES ('"+username+"','"+points+"')";
+            connect = DriverManager.getConnection("jdbc:mysql://localhost:3360/mathgame", "root", "");
+            String query = "INSERT INTO `playerspoints` (username, points) \n"
+                    + "VALUES ('" + username + "', '" + points + "')\n"
+                    + "ON DUPLICATE KEY UPDATE points = points + VALUES(points)";
             statement = connect.createStatement();
             statement.executeUpdate(query);
             System.out.println(query);
-            
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(this,e.getMessage());
-            
-            
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+
         }
     }//GEN-LAST:event_endGameButtonActionPerformed
 
@@ -322,7 +321,6 @@ public class GAME extends javax.swing.JFrame {
      * resets all the text fields to null and also starts the timer when the
      * question is changed
      */
-
     private void startTheGame() {
 
         answerTextField.setText(" ");
@@ -363,14 +361,12 @@ public class GAME extends javax.swing.JFrame {
         timer.start();
 
     }
-    
-   
 
     /**
-     * This method takes in the sound file to played as a parameter and uses 
-     * the java sound API to ensure that the sound is played.
-     * The sound files are expected to be in WAV,AFFI format to be able to play
-     * 
+     * This method takes in the sound file to played as a parameter and uses the
+     * java sound API to ensure that the sound is played. The sound files are
+     * expected to be in WAV,AFFI format to be able to play
+     *
      *
      * @param soundfile
      */

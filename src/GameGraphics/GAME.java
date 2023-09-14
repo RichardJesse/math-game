@@ -284,11 +284,12 @@ public class GAME extends javax.swing.JFrame {
             statement = connect.createStatement();
             statement.executeUpdate(query);
             System.out.println(query);
-
+   
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
 
         }
+        endGameButton.setEnabled(false);
     }//GEN-LAST:event_endGameButtonActionPerformed
 
     /**

@@ -135,13 +135,7 @@ public class GameMainPage extends javax.swing.JFrame {
         GameLoginPage GLP = new GameLoginPage();
         System.out.println(GLP.getCurrentUser());
         
-//        String username = System.getProperty("username");
-//        if(username == null){
-//            System.out.println("the username was null");
-//        }
-//        else{
-//            System.out.println(username);
-//        }
+
     }//GEN-LAST:event_PlayGameButtonActionPerformed
 
     private void LeaderboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LeaderboardButtonActionPerformed

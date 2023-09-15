@@ -256,6 +256,14 @@ public class GAME extends javax.swing.JFrame {
     public int getPlayerPoints() {
         return playerPoints;
     }
+    /**
+     * this takes in the event as a parameter and then carries out the function 
+     * checking if the user is already existent in the leader board and in the
+     * event that the user exists their points form the current session are 
+     * cumulated with the points that they have up to that point in the game.
+     * 
+     * @param evt 
+     */
     private void endGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endGameButtonActionPerformed
         // TODO add your handling code here:
         // when the player ends the game we add the points they had gotten to the playerspoints relation in the database
@@ -264,7 +272,9 @@ public class GAME extends javax.swing.JFrame {
          1.getting the users username to link to the points
          2. arranging the table in desending order
          3.showing the table in a separate page. 
-         4. adding the points to the players points table
+         4. adding the points to the players points table in a cumulative manner.
+         5. also keep logs of the players performance over a period of time 
+        
         
          */
         GameLoginPage GLP = new GameLoginPage();
@@ -275,7 +285,7 @@ public class GAME extends javax.swing.JFrame {
         int points = G.getPlayerPoints();
 
         try {
-            // query to insert the data into the players points relation
+            
             Class.forName("com.mysql.jdbc.Driver");
             connect = DriverManager.getConnection("jdbc:mysql://localhost:3360/mathgame", "root", "");
             String query = "INSERT INTO `playerspoints` (username, points) \n"
@@ -284,14 +294,27 @@ public class GAME extends javax.swing.JFrame {
             statement = connect.createStatement();
             statement.executeUpdate(query);
             System.out.println(query);
-   
+                  /*
+            add a JOptionPane popoup that asks the player  if they are sure about
+            leaving the game to gove the game a more clean look.
+            */
+            
+             EndGamePage EGP = new EndGamePage();
+             EGP.setVisible(true);
+             this.setVisible(false);
+            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
 
         }
-        endGameButton.setEnabled(false);
+       
     }//GEN-LAST:event_endGameButtonActionPerformed
 
+    /**
+     * a way is needed to allow the user to enter negative decimal and answers
+     * that are other than numbers in the answer field
+     */
     /**
      * This method takes in the numbers from the expressions passed to it as
      * strings and converts them to integers by the use of the use of the java
@@ -319,8 +342,8 @@ public class GAME extends javax.swing.JFrame {
     private Timer timer;
 
     /**
-     * resets all the text fields to null and also starts the timer when the
-     * question is changed
+     * resets all the text fields to null and also starts the timer when the it
+     * is called
      */
     private void startTheGame() {
 

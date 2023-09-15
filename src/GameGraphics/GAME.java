@@ -222,14 +222,14 @@ public class GAME extends javax.swing.JFrame {
         String points = pointsTextField.getText().trim();
         System.out.println(points);
 
-        if (!answerText.matches("\\d+")) {
+        if (!answerText.matches("-?\\d+")) {
             JOptionPane.showMessageDialog(this, "Invalid input: please enter only digits");
             return;
         }
 
-        int answer = evaluateExpression(answerText);
-        int question = evaluateExpression(questionText);
-        int Point = evaluateExpression(points);
+        Number answer = evaluateExpression(answerText);
+        Number question = evaluateExpression(questionText);
+        Number Point = evaluateExpression(points);
         if (answer == question) {
             point++;
             playSound("C:\\Users\\user1\\Downloads\\mixkit-correct-answer-tone-2870.wav");
@@ -274,7 +274,6 @@ public class GAME extends javax.swing.JFrame {
          3.showing the table in a separate page. 
          4. adding the points to the players points table in a cumulative manner.
          5. also keep logs of the players performance over a period of time 
-        
         
          */
         GameLoginPage GLP = new GameLoginPage();
@@ -323,7 +322,7 @@ public class GAME extends javax.swing.JFrame {
      * @param expression
      * @return an integer from an integer that was wrapped with quotation marks
      */
-    private int evaluateExpression(String expression) {
+    private Number evaluateExpression(String expression) {
 
         expression = expression.replaceAll("\\s+", "");
 
@@ -332,7 +331,7 @@ public class GAME extends javax.swing.JFrame {
 
         try {
 
-            return (int) engine.eval(expression);
+            return (Number) engine.eval(expression);
         } catch (ScriptException e) {
 
             JOptionPane.showMessageDialog(this, "Invalid expression: " + e.getMessage());

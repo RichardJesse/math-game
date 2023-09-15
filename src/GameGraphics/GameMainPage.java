@@ -151,6 +151,11 @@ public class GameMainPage extends javax.swing.JFrame {
            while(rset.next()){
                JOptionPane.showMessageDialog(this,rset.getString("username")+"You have "+rset.getInt("points")+" points");
                System.out.println("the points are being shown on the screen");
+               
+               LeaderboardPage LBP = new LeaderboardPage();
+               LBP.setVisible(true);
+               this.setVisible(false);
+               
                   
            }
             

@@ -5,11 +5,12 @@
  */
 package GameGraphics;
 
-/**
- *
- * @author user1
- */
+import java.sql.*;
+import javax.swing.JOptionPane;
 public class LeaderboardPage extends javax.swing.JFrame {
+    Connection connect;
+    PreparedStatement pst;
+    ResultSet rset;
 
     /**
      * Creates new form LeaderboardPage
@@ -29,7 +30,7 @@ public class LeaderboardPage extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        showLeaderboardTextbox = new javax.swing.JTextField();
         GoBackButton = new javax.swing.JButton();
         GoToGameButton = new javax.swing.JButton();
 
@@ -62,7 +63,7 @@ public class LeaderboardPage extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(showLeaderboardTextbox, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(GoBackButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -76,7 +77,7 @@ public class LeaderboardPage extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(showLeaderboardTextbox, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(GoBackButton)
@@ -113,6 +114,33 @@ public class LeaderboardPage extends javax.swing.JFrame {
         
     }//GEN-LAST:event_GoToGameButtonActionPerformed
 
+    public void getTheLeaderboard(){
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            connect = DriverManager.getConnection("jdbc:mysql://localhost:3360/mathgame","root","");
+             
+           String query = "SELECT * FROM `playerspoints`";
+           pst =connect.prepareStatement(query);
+           rset = pst.executeQuery();
+           while(rset.next()){
+               JOptionPane.showMessageDialog(this,rset.getString("username")+"You have "+rset.getInt("points")+" points");
+               System.out.println("the points are being shown on the screen");
+               
+               LeaderboardPage LBP = new LeaderboardPage();
+               LBP.setVisible(true);
+               this.setVisible(false);
+               
+                  
+           }
+            
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this,e.getMessage());
+            System.out.println("there was a problem that has already been shown in the screen");
+            
+            
+        }
+        System.out.println("nothing happend when you pressed the button");
+    }
     /**
      * @param args the command line arguments
      */
@@ -153,6 +181,6 @@ public class LeaderboardPage extends javax.swing.JFrame {
     private javax.swing.JButton GoToGameButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField showLeaderboardTextbox;
     // End of variables declaration//GEN-END:variables
 }

@@ -18,6 +18,10 @@ public class LeaderboardPage extends javax.swing.JFrame {
     public LeaderboardPage() {
         initComponents();
     }
+/**
+ * find the way to get the whole board form the database and 
+ * ; out put the whole body table form the database.
+ */
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -105,7 +109,7 @@ public class LeaderboardPage extends javax.swing.JFrame {
         GMP.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_GoBackButtonActionPerformed
-
+//     showLeaderboardTextField.setText();
     private void GoToGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoToGameButtonActionPerformed
         // TODO add your handling code here:
         GAME G = new GAME();

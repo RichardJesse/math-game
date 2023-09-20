@@ -157,31 +157,11 @@ public class GameLoginPage extends javax.swing.JFrame {
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
         // TODO add your handling code here:
-        String username = UsernameTextField.getText();
-        String password = PasswordTextField.getText();
-
-        try {
-            String Query = "SELECT * FROM `GameLogin` WHERE password = '" + password + "'";
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3360/mathgame", "root", "");
-            pst = connection.prepareStatement(Query);
-            System.out.println(pst);
-            System.out.println(rset);
-
-            rset = pst.executeQuery();
-            while (rset.next()) {
-                JOptionPane.showMessageDialog(this, "You are logged in as" + " " + rset.getString("username"));
-                   this.currentUser = username;
-                GameMainPage G = new GameMainPage();
-               G.setVisible(true);
-               this.setVisible(false);
-
-            }
-         
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "there was an error that occurred and it is " + e.getMessage());
-        }
+    /**
+     * there is need to find a way to get the information that is the leader board table
+     * and get all the scores that the past user of the game have players
+     * find a way of adding sockets to the game
+     */
     }//GEN-LAST:event_LoginButtonActionPerformed
  
     /**
